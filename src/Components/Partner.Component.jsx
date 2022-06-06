@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { index, destroy } from "../service/partnerService";
 import { NavLink } from "react-router-dom";
+import Navbar from "../Components/Common/Navbar.Component";
 const Partner = () => {
   const [partnerList, setPartnerList] = useState([]);
   useEffect(() => {
@@ -24,6 +25,8 @@ const Partner = () => {
   };
   return (
     <>
+      <Navbar />
+    <h2>Partner List</h2>
       <NavLink className="navbar-brand" to="/partner/create">
         Add
       </NavLink>

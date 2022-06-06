@@ -4,7 +4,7 @@ import Input from "./Common/Input.Component";
 import { update, show } from "../service/partnerService";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
+import Navbar from "../Components/Common/Navbar.Component";
 class PartnerEdit extends Form {
   constructor(props) {
     super(props);
@@ -64,6 +64,8 @@ class PartnerEdit extends Form {
     const { errors, partner } = this.state;
     return (
       <>
+        <Navbar />
+        <h2>Edit Partner</h2>
         <div className="row">
           <div className="col-md-3"></div>
           <div className="col-md-6">

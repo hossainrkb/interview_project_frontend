@@ -3,7 +3,7 @@ import Form from "./Common/Form.Component";
 import Input from "./Common/Input.Component";
 import { store } from "../service/partnerService";
 import { useNavigate } from 'react-router-dom';
-
+import Navbar from "../Components/Common/Navbar.Component";
 
 class PartnerAdd extends Form {
   constructor(props) {
@@ -49,6 +49,8 @@ class PartnerAdd extends Form {
     const { errors } = this.state;
     return (
       <>
+        <Navbar />
+        <h2>Add Partner</h2>
         <div className="row">
           <div className="col-md-3"></div>
           <div className="col-md-6">
