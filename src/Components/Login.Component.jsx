@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Form from "./Common/Form.Component";
 import Input from "./Common/Input.Component";
 import { login } from "../service/userService";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 class Login extends Form {
   constructor(props) {
     super(props);
@@ -37,15 +39,18 @@ class Login extends Form {
       username: username,
       password: password,
       grant_type: "password",
-      client_id: 2,
-      client_secret: "ZvjeEN9fEAmajNekNc7QTldTdmqePLfq5VfUvaKA",
+      client_id: process.env.REACT_APP_SERVER_CLIENT_ID,
+      client_secret: process.env.REACT_APP_SERVER_CLIENT_SECRET,
       scope: "*",
     };
+    
     await login(loginUser);
-    window.location = "/home";
+    this.props.navigation("/home");
     // this.props.history.push("/movies")
   };
   render() {
+    if (localStorage.getItem("accessToken"))
+      return (window.location.href = "/home");
     const { username, password } = this.state.data;
     const { errors } = this.state;
     return (
@@ -53,37 +58,49 @@ class Login extends Form {
         <div className="row">
           <div className="col-md-3"></div>
           <div className="col-md-6">
-            <form onSubmit={this.handleFormSubmit}>
-              <div className="mb-3">
-                <Input
-                  type="text"
-                  label="User name"
-                  id="username"
-                  name="username"
-                  value={username}
-                  onChange={this.handleOnChange}
-                  errors={errors}
-                />
+            <div className="card">
+              <div className="card-heading bg-info p-5">
+                <h2>Login</h2>
               </div>
-              <div className="mb-3">
-                <Input
-                  type="password"
-                  label="Password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={this.handleOnChange}
-                  errors={errors}
-                />
+
+              <div className="card-body">
+                <form onSubmit={this.handleFormSubmit}>
+                  <div className="mb-3">
+                    <Input
+                      type="text"
+                      label="User name"
+                      id="username"
+                      name="username"
+                      value={username}
+                      onChange={this.handleOnChange}
+                      errors={errors}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <Input
+                      type="password"
+                      label="Password"
+                      id="password"
+                      name="password"
+                      value={password}
+                      onChange={this.handleOnChange}
+                      errors={errors}
+                    />
+                  </div>
+                  <button type="submit" className="btn btn-primary">
+                    Login
+                  </button>
+                  <Link to="/register">Register?</Link>
+                </form>
               </div>
-              <button type="submit" className="btn btn-primary">
-                Submit
-              </button>
-            </form>
+            </div>
           </div>
         </div>
       </>
     );
   }
 }
-export default Login;
+export default function (props) {
+  const navigation = useNavigate();
+  return <Login {...props} navigation={navigation}  />;
+}
