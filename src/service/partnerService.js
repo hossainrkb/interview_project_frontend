@@ -1,5 +1,5 @@
 import http from "./httpService";
-const END_POINT = "http://localhost:8005";
+const END_POINT = process.env.REACT_APP_SERVER_URL;
 
 export function index() {
   try {
