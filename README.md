@@ -9,7 +9,7 @@
 #### npm start
 
 
-* ## This is an api based application. Here it is Frontend React has been used.
+* ## This is an api based application. Here it is Frontend and React has been used.
 * ## Features
     > Partner
     >>
