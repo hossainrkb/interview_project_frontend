@@ -1,11 +1,13 @@
 # Application for Interview
 ## Run Project:
-add your desire endpoint and secret
-REACT_APP_SERVER_URL="http://localhost:8005"
-REACT_APP_SERVER_CLIENT_ID=2
-REACT_APP_SERVER_CLIENT_SECRET=ICwtFSRsxMNoZ76kYDzwSjCnJmjjRbuS70RoRrBP
-and then:
-npm start
+
+#### add your desire endpoint and secret
+#### REACT_APP_SERVER_URL="http://localhost:8005"
+#### REACT_APP_SERVER_CLIENT_ID=2
+#### REACT_APP_SERVER_CLIENT_SECRET=ICwtFSRsxMNoZ76kYDzwSjCnJmjjRbuS70RoRrBP
+#### and then:
+#### npm start
+
 
 * ## This is an api based application. Here it is Frontend React has been used.
 * ## Features
