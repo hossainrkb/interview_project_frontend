@@ -5,7 +5,7 @@ import { update, show, destroy } from "../service/offerService";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-
+import Navbar from "../Components/Common/Navbar.Component";
 class OfferEdit extends Form {
   constructor(props) {
     super(props);
@@ -84,6 +84,7 @@ class OfferEdit extends Form {
     const { errors } = this.state;
     return (
       <>
+        <Navbar />
         <h1>Offer Edit</h1>
         <NavLink
           className="navbar-brand"

@@ -1,5 +1,5 @@
 import http from "./httpService";
-const END_POINT = "http://localhost:8005";
+const END_POINT = process.env.REACT_APP_SERVER_URL;
 
 export function index(partnerId) {
   try {
@@ -62,6 +62,24 @@ export function show(id) {
     };
     return http.post(
       `${END_POINT}/api/offer/show/${id}`,
+      {},
+      {
+        headers: headers,
+      }
+    );
+  } catch (error) {
+    return null;
+  }
+}
+export function list() {
+  try {
+    let accessToken = localStorage.getItem("accessToken");
+    let headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    };
+    return http.post(
+      `${END_POINT}/api/offer`,
       {},
       {
         headers: headers,

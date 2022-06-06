@@ -4,7 +4,7 @@ import Input from "./Common/Input.Component";
 import { store } from "../service/offerService";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
+import Navbar from "../Components/Common/Navbar.Component";
 class OfferAdd extends Form {
   constructor(props) {
     super(props);
@@ -64,6 +64,7 @@ class OfferAdd extends Form {
     const { errors } = this.state;
     return (
       <>
+        <Navbar />
         <h1>Offer Add</h1>
         <div className="row">
           <div className="col-md-3"></div>

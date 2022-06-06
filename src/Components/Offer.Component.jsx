@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { index, destroy } from "../service/offerService";
 import { NavLink } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Navbar from "../Components/Common/Navbar.Component";
 const Offer = () => {
   let { id } = useParams();
   const [List, setList] = useState([]);
@@ -40,6 +41,7 @@ const Offer = () => {
   };
   return (
     <>
+      <Navbar />
       <h1>Offer List for : {partnerData.name}</h1>
       <NavLink
         className="navbar-brand"
