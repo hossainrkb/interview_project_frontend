@@ -1,53 +1,77 @@
 import { useState, useEffect } from "react";
-import { index, destroy } from "../service/partnerService";
+import { index, destroy } from "../service/offerService";
 import { NavLink } from "react-router-dom";
-const Partner = () => {
-  const [partnerList, setPartnerList] = useState([]);
+import { useParams } from "react-router-dom";
+const Offer = () => {
+  let { id } = useParams();
+  const [List, setList] = useState([]);
+  const [partnerData, setpartnerData] = useState({});
   useEffect(() => {
     (async () => {
-      let response = await index();
+      let response = await index(id);
       let { data: responseData } = response;
       if (responseData.status && responseData.status == "ok") {
-        setPartnerList(responseData.data);
+        console.log(responseData);
+        let { offers } = responseData.data;
+        let { partner } = responseData.data;
+        setList(offers);
+        setpartnerData(partner);
       }
     })();
   }, []);
 
   const destroyPartner = async (id) => {
+    if (!window.confirm("Are You Sure ?")) return;
+    let response = await destroy(id);
+    let { data: responseData } = response;
+    if (responseData.status && responseData.status == "ok") {
+      let newList = List.filter((e) => e.id != id);
+      setList(newList);
+    }
+  };
+  const destroyoffer = async (id) => {
     if(!window.confirm('Are You Sure ?'))return;
     let response = await destroy(id);
     let { data: responseData } = response;
     if (responseData.status && responseData.status == "ok") {
-      let newList = partnerList.filter((e) => e.id != id);
-      setPartnerList(newList);
+      let newList = List.filter((e) => e.id != id);
+      setList(newList);
     }
   };
   return (
     <>
-      <NavLink className="navbar-brand" to="/partner/create">
-        Add
+      <h1>Offer List for : {partnerData.name}</h1>
+      <NavLink
+        className="navbar-brand"
+        to={`/partner/${partnerData.id}/offers/create`}
+      >
+        Offer Add
       </NavLink>
       <table className="table">
         <thead>
           <tr>
             <td>SL</td>
             <td>Name</td>
-            <td>Location</td>
+            <td>Percentage</td>
+            <td>Image</td>
             <td>Action</td>
           </tr>
         </thead>
         <tbody>
-          {partnerList.length > 0
-            ? partnerList.map((e, index) => {
+          {List.length > 0
+            ? List.map((e, index) => {
                 return (
                   <tr key={e.id}>
                     <td>{++index}</td>
                     <td>{e.name}</td>
-                    <td>{e.location}</td>
+                    <td>{e.percentage}</td>
+                    <td>
+                      <img src={e.offer_url} width="80px" />
+                    </td>
                     <td>
                       <NavLink
                         className="btn-primary btn btn-sm"
-                        to={`/partner/${e.id}/edit`}
+                        to={`/offer/${e.id}/edit`}
                       >
                         Edit
                       </NavLink>
@@ -59,12 +83,6 @@ const Partner = () => {
                       >
                         Delete
                       </button>
-                      <NavLink
-                        className="btn-primary btn btn-sm"
-                        to={`/partner/${e.id}/offers`}
-                      >
-                        Offers
-                      </NavLink>
                     </td>
                   </tr>
                 );
@@ -76,4 +94,4 @@ const Partner = () => {
   );
 };
 
-export default Partner;
+export default Offer;
